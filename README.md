@@ -15,3 +15,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Backend part:
+
+[additional-java-back](https://github.com/skoryk-vlad/additional-java-back)

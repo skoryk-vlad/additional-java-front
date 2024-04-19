@@ -25,6 +25,25 @@ const addPackage = async () => {
   }
 };
 
+const exportExcel = async () => {
+  try {
+    const { data } = await axios.get("http://localhost:8081/packages/excel", {
+      responseType: "blob",
+    });
+
+    const href = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.href = href;
+    link.setAttribute('download', 'packages.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(href);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const fetchData = async () => {
   try {
     packages.value = (await axios.get("http://localhost:8081/packages")).data;
@@ -44,6 +63,7 @@ fetchData();
     <div class="form">
       <input type="text" placeholder="Package name..." v-model="packageName" />
       <button @click="addPackage">Add package</button>
+      <button @click="exportExcel">Export Excel</button>
     </div>
     <table>
       <tr class="header-row">
